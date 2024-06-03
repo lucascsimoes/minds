@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  animation-fill-mode: forwards;
+  font-family: 'Montserrat', 'sans';
+}
+
+*:not(.rccs__card *) { color: #fff; }
+
+body {
+  background-color: var(--background);
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+p, ::placeholder { font-size: 14px; }
+
+:root {
+  --background: #000000;
+
+  --card: #17171a;
+  --card-foreground: #27272c;
+  --card-secondary: #33333a;
+
+  --primary: #71bd90;
+  --secondary: #0e5169;
+}
+  

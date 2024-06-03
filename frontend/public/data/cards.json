@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "number": "1234 5678 9101 1121",
+        "date": "12/25",
+        "name": "Alice Silva",
+        "cvv": 789
+    },
+    {
+        "id": 2,
+        "number": "2345 6789 1011 2122",
+        "date": "06/23",
+        "name": "Bruno Pereira",
+        "cvv": 456
+    },
+    {
+        "id": 3,
+        "number": "3456 7890 1121 2233",
+        "date": "09/24",
+        "name": "Carla Oliveira",
+        "cvv": 123
+    },
+    {
+        "id": 4,
+        "number": "4567 8901 1223 3344",
+        "date": "11/26",
+        "name": "Daniel Costa",
+        "cvv": 321
+    },
+    {
+        "id": 5,
+        "number": "5678 9012 1334 4455",
+        "date": "05/22",
+        "name": "Elena Santos",
+        "cvv": 654
+    },
+    {
+        "id": 6,
+        "number": "6789 0123 1445 5566",
+        "date": "08/27",
+        "name": "Fabio Almeida",
+        "cvv": 987
+    },
+    {
+        "id": 7,
+        "number": "7890 1234 1556 6677",
+        "date": "01/28",
+        "name": "Gabriela Lima",
+        "cvv": 852
+    },
+    {
+        "id": 8,
+        "number": "8901 2345 1667 7788",
+        "date": "07/25",
+        "name": "Hugo Rocha",
+        "cvv": 369
+    },
+    {
+        "id": 9,
+        "number": "9012 3456 1778 8899",
+        "date": "02/24",
+        "name": "Isabela Ramos",
+        "cvv": 741
+    },
+    {
+        "id": 10,
+        "number": "0123 4567 1889 9900",
+        "date": "10/23",
+        "name": "Jorge Nunes",
+        "cvv": 159
+    }
+]
