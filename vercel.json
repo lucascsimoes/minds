@@ -2,12 +2,12 @@
     "version": 2,
     "builds": [
       {
-        "src": "backend/**/*.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "frontend/src/**/*.tsx",
-        "use": "@vercel/react"
+        "src": "**",
+        "use": "@vercel/node",
+        "config": {
+          "index": "frontend/public/index.html",
+          "outputDirectory": "frontend/build"
+        }
       }
     ]
   }
