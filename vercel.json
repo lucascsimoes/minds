@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "backend/**/*.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "frontend/src/**/*.tsx",
+        "use": "@vercel/react"
+      }
+    ]
+  }
