@@ -1,5 +1,5 @@
 export type ICard = {
-    id: number,
+    _id: number,
     number: string,
     date: string,
     name: string,

@@ -43,7 +43,9 @@ export default function SignIn(): ReactElement {
         }
 
         await services.user.postLogin(newValues)
-        sessionStorage.getItem('token') && navigate("/")
+        if (sessionStorage.getItem('token')) {
+            navigate("/")
+        }
     };
 
     return (

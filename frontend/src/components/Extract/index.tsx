@@ -24,15 +24,6 @@ export default function Extract(): ReactElement {
     const trasactionsTypesToFilter: string[] = ["Todos", "Depósito", "Transferência"]
     const [filter, setFilter] = useState(trasactionsTypesToFilter[0])
 
-    if (isLoading) return <Spinner/>
-    if (error) return <ErrorFeedback> { error.message } </ErrorFeedback>
-    if (!transactions?.length) return (
-        <>
-            <p> Você não fez nenhuma transação nos últimos 90 dias. Deseja alterar o tempo de visualização? </p>
-            <Link to={"/config"}> Alterar configuração </Link>
-        </>
-    )
-
     function getTransactionTypeIcon(type: string): ReactElement {
         switch (type) {
             case "Depósito": 
@@ -44,7 +35,10 @@ export default function Extract(): ReactElement {
         }
     }
 
-    
+    if (isLoading) return <Spinner/>
+    if (error) return <ErrorFeedback> { error.message } </ErrorFeedback>
+    if (!transactions?.length) return <p> Você não fez nenhuma transação nos últimos 90 dias </p>
+
 
     return (
         <Styled.Container>
@@ -66,8 +60,8 @@ export default function Extract(): ReactElement {
                 <Accordion type="single" collapsible>
                     { transactions?.filter(transaction => filter === "Todos" ? transaction : transaction.type === filter).map((transaction: ITransaction) => (
                         <ExtractItem
-                            key={transaction.id}
-                            id={transaction.id}
+                            key={transaction._id}
+                            _id={transaction._id}
                             type={transaction.type}
                             description={transaction.description}
                             value={transaction.value}

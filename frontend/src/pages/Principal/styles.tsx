@@ -25,7 +25,7 @@ export const Container = styled.main `
 
     & > section {
         position: relative;
-        max-width: 300px;
+        width: 300px;
         border-radius: 20px;
         background: var(--card);
         padding: 30px;

@@ -7,12 +7,12 @@ import dayjs from "dayjs";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { AccordionContent, AccordionItem, AccordionTrigger, } from "src/components/ui/accordion"
 
-export default function ExtractItem({ id, type, description, value, date }: Omit<ITransaction, 'userId'>): ReactElement {
+export default function ExtractItem({ _id, type, description, value, date }: Omit<ITransaction, 'userId'>): ReactElement {
     
     const formatDate = dayjs(date).format('DD/MM/YYYY')
 
     return (
-        <AccordionItem value={"item" + id}>
+        <AccordionItem value={"item" + _id}>
             <AccordionTrigger>
                 <Styled.Container>
                     <p> { type } &#9679; { formatDate } </p>

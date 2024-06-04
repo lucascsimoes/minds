@@ -4,24 +4,35 @@ import User from "../models/User.js";
 
 const router = Router()
 
-router.get("/", async (req, res) => {
-    const card = await Card.find()
+router.get("/:userId", async (req, res) => {
+    const { userId } = req.params;
+    
+    const cards = await Card.find({ userId });
 
-    if (!card) {
+    if (!cards) {
         return res.status(404).json({ message: "Nenhum cartão encontrado. Tente adicionar um" })
     }
 
-    res.status(200).json({ card })
+    res.status(200).json({ cards })
 })
 
+// router.get("/", async (req, res) => {
+//     const card = await Card.find()
+
+//     if (!card) {
+//         return res.status(404).json({ message: "Nenhum cartão encontrado. Tente adicionar um" })
+//     }
+
+//     res.status(200).json({ card })
+// })
+
 router.post("/", async (req, res) => {
-    const { number, date, name, cvv } = req.body
-    const userId = req.user?._id;
+    const { number, date, name, cvv, userId } = req.body
 
     try {
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).send('User not found');
+            return res.status(404).send('Usuário não encontrado');
         }
 
         const card = new Card({

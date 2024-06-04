@@ -3,7 +3,7 @@ import { InputType } from "@/interfaces/InputType";
 
 interface ContainerInputProp extends Pick<InputType, 'size'> {
     $hasIconLeft: boolean
-    $error: boolean
+    $error?: string | boolean
     width?: number | string
 }
 
@@ -29,6 +29,7 @@ export const Container = styled.div<ContainerInputProp> `
         &::placeholder {
             font-size: 13px;
             letter-spacing: 0;
+            color: ${({ $error }) => $error === "inline" ? '#ef4444' : null }
         }
     }
 

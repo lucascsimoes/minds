@@ -2,52 +2,87 @@ import { ReactElement, useEffect, useState } from "react";
 import * as Styled from './styles'
 
 import { ICard } from "@/interfaces/ICard";
-import CardServices from "src/services/cards";
+import services from "src/services/services";
 import Card from "src/components/Card/Card";
 
-import { Outlet, useLocation } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import ErrorFeedback from "src/components/ErrorFeedback/ErrorFeedback";
-import CardsCarousel from "src/components/CardsCarousel/CardsCarousel";
+import Spinner from "src/components/Spinner/Spinner";
+import { ComboboxDemo } from "src/components/ui/combobox";
+import { Button } from "src/components/ui/button";
+
 
 export default function Cards(): ReactElement {
 
     const location = useLocation()
+    const navigate = useNavigate()
 
-    const [selectedCard, setSelectedCard] = useState<ICard | null>(null)
+    const [selectedCard, setSelectedCard] = useState<ICard | undefined>(undefined)
     const { data: cards, isLoading, error } = useQuery({ 
         queryKey: ['cards'],
-        queryFn: () => CardServices.get()
+        queryFn: () => services.card.get()
     })
 
-    console.log(cards)
+    useEffect(() => {
+        if (cards !== undefined) {
+            setSelectedCard(cards[0])
+            location.pathname === "/cards/add" && setSelectedCard(undefined)
+            location.pathname === "/cards" && setSelectedCard(cards[0])
+        }
+    }, [cards, location.pathname])
 
-    // useEffect(() => {
-    //     if (cards !== undefined) {
-    //         setSelectedCard(cards[0])
-    //         location.pathname === "/cards/add" && setSelectedCard(null)
-    //         location.pathname === "/cards" && setSelectedCard(cards[0])
-    //     }
-    // }, [cards, location.pathname])
+    function replaceCardString(str: string) {
+        const numeroArray = str.split('');
+      
+        for (let i = 0; i < numeroArray.length - 4; i++) {
+          if (!isNaN(Number(numeroArray[i])) && numeroArray[i] !== ' ') {
+            numeroArray[i] = '●';
+          }
+        }
+      
+        return numeroArray.join('');
+    }
 
     if (error) return <ErrorFeedback> { error.message } </ErrorFeedback>
+    if (isLoading || cards === undefined) return <Spinner/>
+
+    const comboboxList = cards.map(card => {
+        return {
+          value: card.number,
+          label: replaceCardString(card.number)
+        }
+    })
+
+    const handleSelected = (value: string | null) => {
+        setSelectedCard(cards.find(card => card.number === value))
+    }
 
     return (
         <Styled.Container>
-            {/* <header>
-                <CardsCarousel 
-                    data={cards}
-                    cardSelected={value => setSelectedCard(value)}
-                />
+            <header>
+                <aside>
+                    <Button variant={"create"} onClick={() => navigate("/cards/add")}> Adicionar cartão </Button>
+                    <Button variant={"ghost"}> Editar </Button>
+                    <Button variant={"ghost"}> Excluir </Button>
+                </aside>
+                { location.pathname === "/cards/add" ?
+                    <Button variant={"secondary"} onClick={() => navigate("/cards")}> Cancelar </Button>
+                    :
+                    <ComboboxDemo 
+                        list={comboboxList}
+                        selected={(value) => handleSelected(value)}
+                    />
+                }
             </header>
             <main>
-                { cards?.length === 0  ?
+                { !isLoading && cards.length === 0 ?
                     <p> Nâo há nenhum cartão adicionado. Tente cadastrar um para prosseguir </p>
                     :
-                    selectedCard !== null &&
+                    selectedCard !== undefined &&
                         <Card
-                            id={selectedCard.id}
+                            _id={selectedCard._id}
                             number={selectedCard.number}
                             date={selectedCard.date}
                             cvv={selectedCard.cvv}
@@ -55,7 +90,7 @@ export default function Cards(): ReactElement {
                         />
                 }
                 <Outlet />
-            </main> */}
+            </main>
 
 
 

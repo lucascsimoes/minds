@@ -5,8 +5,15 @@ export const Container = styled.div `
     gap: 40px;
 
     & > header {
-        padding-inline: 50px;
-        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+
+        aside {
+            display: flex;
+            gap: 10px;
+        }
     }
 
     & > aside {

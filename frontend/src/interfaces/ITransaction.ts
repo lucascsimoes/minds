@@ -1,5 +1,5 @@
 export interface ITransaction {
-    id: number
+    _id: number
     type: string
     description: string | null
     value: number

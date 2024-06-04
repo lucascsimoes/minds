@@ -13,7 +13,7 @@ const transaction = {
         }
     },
 
-    post: async ({ ...props }: Omit<ITransaction, 'id'>) => {
+    post: async ({ ...props }: Omit<ITransaction, '_id'>) => {
         try {
             const response = await axios.post("http://localhost:8000/transaction", props)
             return toast.success(response.data.message)

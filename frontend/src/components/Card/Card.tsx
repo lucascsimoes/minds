@@ -7,7 +7,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import CardInterface from 'react-credit-cards-2';
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-export default function Card({ id, number, date, name, cvv }: ICard): ReactElement {
+export default function Card({ _id, number, date, name, cvv }: ICard): ReactElement {
 
     const [focus, setFocus] = useState<"number" | "cvc">("number")
     const handleFocus = () =>  {

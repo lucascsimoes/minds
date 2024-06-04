@@ -14,7 +14,7 @@ import { Minus, Plus, Send, TrendingDown, TrendingUp } from "lucide-react";
 import { Field, Formik, FormikHelpers } from "formik";
 import { useQueries } from "@tanstack/react-query";
 
-type TransactionWithoutId = Omit<SwapAllToStrings<ITransaction>, "id" | "userId">
+type TransactionWithoutId = Omit<SwapAllToStrings<ITransaction>, "_id" | "userId">
 const initialValues: TransactionWithoutId = { 
     type: 'Depósito',
     value: "",

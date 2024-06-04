@@ -44,10 +44,6 @@ export const routes = [
   }
 ]
 
-// const PrivateRoute = ({ auth: { isAuthenticated }, children }: PrivateRouteProps) => {
-//   return isAuthenticated ? children : <Navigate to="/signin" />;
-// };
-
 const PrivateWrapper = ({ auth: { isAuthenticated } }: PrivateWrapperProps) => {
   return isAuthenticated ? <Outlet /> : <Navigate to="/signin" />;
 };
