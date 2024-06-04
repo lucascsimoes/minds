@@ -3,7 +3,7 @@ import * as Styled from './styles'
 
 import Input from "src/components/Input/Input";
 import Spinner from "src/components/Spinner/Spinner";
-import UserServices from "src/services/users";
+import services from "src/services/services";
 import { IUser } from "src/interfaces/IUser";
 
 import * as Yup from 'yup';
@@ -11,6 +11,7 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useUserContext } from "src/context";
+
 
 const SignupSchema = Yup.object().shape({
     name: Yup.string()
@@ -45,7 +46,7 @@ interface SignUpTypes {
 export default function SignUp(): ReactElement {
 
     const navigate = useNavigate()
-    const { data, setData } = useUserContext()
+    const { setData } = useUserContext()
 
     const handleSubmit = async (values: SignUpTypes, { setSubmitting }: FormikHelpers<SignUpTypes>) => {
         const newValues: IUser = {
@@ -55,16 +56,12 @@ export default function SignUp(): ReactElement {
             password: values.password
         }
 
-        const { status, message, token } = await UserServices.post(newValues)
-
-        if (status !== 201) {
-            toast.error(message)
-        } else {
-            setData({ 
-                name: newValues.name, 
-                balance: newValues.balance 
+        await services.user.post(newValues)
+        if (sessionStorage.getItem('token')) {
+            setData({
+                name: newValues.name,
+                balance: newValues.balance
             })
-            await sessionStorage.setItem("token", token)
             navigate("/")
         }
 

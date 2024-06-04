@@ -33,9 +33,9 @@ export const routes = [
     path: '/cards'
   },
   {
-    name: 'Investimentos',
+    name: 'Serviços',
     icon: <HandCoins size={20} strokeWidth={1.5}/>,
-    path: '/investments'
+    path: '/services'
   },
   {
     name: 'Dashboard',

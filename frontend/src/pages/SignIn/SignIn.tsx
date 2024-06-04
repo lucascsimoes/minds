@@ -4,13 +4,14 @@ import * as Styled from './styles'
 import Input from "src/components/Input/Input";
 import Spinner from "src/components/Spinner/Spinner";
 
-import UserServices from "src/services/users";
+import services from "src/services/services";
 import { useUserContext } from "src/context";
 
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+
 
 const SigninSchema = Yup.object().shape({
     email: Yup.string()
@@ -41,14 +42,8 @@ export default function SignIn(): ReactElement {
             password: values.password
         }
 
-        const { status, message, token } = await UserServices.postLogin(newValues)
-
-        if (status !== 200) {
-            toast.error(message)
-        } else {
-            await sessionStorage.setItem("token", token)
-            navigate("/")
-        }
+        await services.user.postLogin(newValues)
+        sessionStorage.getItem('token') && navigate("/")
     };
 
     return (

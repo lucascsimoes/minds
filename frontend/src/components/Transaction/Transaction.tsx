@@ -2,17 +2,17 @@ import { ReactElement, useState } from "react";
 import * as Styled from './styles'
 
 import { ITransaction } from "@/interfaces/ITransaction";
-import TransactionServices from "src/services/transactions";
+import services from "src/services/services";
 import { SwapAllToStrings } from "@/interfaces/SwapAllToString";
 import getFromToken from "src/services/getFromToken";
+
 import Input from "../Input/Input";
+import Spinner from "../Spinner/Spinner";
 
 import dayjs from "dayjs";
 import { Minus, Plus, Send, TrendingDown, TrendingUp } from "lucide-react";
 import { Field, Formik, FormikHelpers } from "formik";
-import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
-import Spinner from "../Spinner/Spinner";
+import { useQueries } from "@tanstack/react-query";
 
 type TransactionWithoutId = Omit<SwapAllToStrings<ITransaction>, "id" | "userId">
 const initialValues: TransactionWithoutId = { 
@@ -26,7 +26,12 @@ const initialValues: TransactionWithoutId = {
 
 export default function Transaction(): ReactElement {
 
-    const { refetch } = useQuery<ITransaction[]>({ queryKey: ['transactions'] })
+    const [{ refetch: refetchTransactions }, { refetch: refetchUser }] = useQueries({
+        queries: [
+            { queryKey: ['transactions'] },
+            { queryKey: ['user'] }
+          ]
+    });
 
     const [option, setOption] = useState<number>(0)
     const handleSubmit = async (values: TransactionWithoutId, { setSubmitting, resetForm }: FormikHelpers<TransactionWithoutId>) => {
@@ -40,10 +45,9 @@ export default function Transaction(): ReactElement {
         }
 
         const userId = getFromToken.id()
-
-        const { status, message } = await TransactionServices.post({ ...newValues, userId })
-        status === 201 ? toast.success(message) : toast.error(message)
-        refetch()
+        await services.transaction.post({ ...newValues, userId })
+        refetchTransactions()
+        refetchUser()
 
         setSubmitting(false)
         resetForm()

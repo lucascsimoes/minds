@@ -5,7 +5,7 @@ import Link from "../Link";
 import { useLocation } from "react-router-dom";
 
 import { routes } from "../../routes";
-import { Bolt, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 export default function Sidebar(): ReactElement {
 
@@ -30,11 +30,6 @@ export default function Sidebar(): ReactElement {
             })}
 
             <footer>
-                <Link
-                    icon={<Bolt size={20} strokeWidth={1.5}/>}
-                    path={"/config"}
-                    $active={pathname === "/config"}
-                > Configuração </Link>
                 <Link
                     icon={<LogOut size={20} strokeWidth={1.5}/>}
                     path={"/signin"}

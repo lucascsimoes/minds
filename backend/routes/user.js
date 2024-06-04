@@ -7,7 +7,7 @@ import checkToken from "../utils/checkToken.js";
 
 const router = Router()
 
-router.get("/:id", checkToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
     const id = req.params.id
 
     const user = await User.findById(id, '-password')
@@ -48,6 +48,7 @@ router.post("/register", async (req, res) => {
     const { email, name, balance, password } = req.body
 
     const userExists = await User.findOne({ email })
+
     if (userExists) {
         return res.status(422).json({ message: "Esse endereço de email já cadastrado" })
     }

@@ -6,14 +6,15 @@ import Spinner from "../Spinner/Spinner";
 
 import { ICard } from "@/interfaces/ICard";
 import { SwapAllToStrings } from "@/interfaces/SwapAllToString";
-import CardServices from "src/services/cards";
 import getFromToken from "src/services/getFromToken";
+import services from "src/services/services";
 
 import { Form, Formik, FormikHelpers } from "formik";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+
 
 
 type CardWithoutId = Omit<SwapAllToStrings<ICard>, "id">
@@ -40,8 +41,7 @@ export default function AddCard({ values }: { values: ICard | undefined}): React
             cvv: Number(values.cvv)
         }
 
-        const { status, message } = await CardServices.post(newValues)
-        status === 200 ? toast.success(message) : toast.error(message)
+        await services.card.post(newValues)
         refetch()
 
         setSubmitting(false)

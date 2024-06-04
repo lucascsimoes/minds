@@ -1,7 +1,8 @@
 import axios from "axios"
 import { ICard } from "@/interfaces/ICard"
+import { toast } from "sonner"
 
-const CardServices = {
+const card = {
     get: async (): Promise<ICard[]> => {
         try {
             const response = await axios.get("http://localhost:8000/card")
@@ -14,18 +15,12 @@ const CardServices = {
     post: async ({ ...props }: Omit<ICard, 'id'>) => {
         try {
             const response = await axios.post("http://localhost:8000/card", props)
-            return {
-                status: response.status,
-                message: response.data.message
-            }
+            return toast.success(response.data.message)
         } catch (e) {
-            return {
-                status: 500,
-                message: "Houve um erro ao adicionar o seu cartão. Tente novamente mais tarde."
-            } 
+            return toast.error("Houve um erro ao adicionar o seu cartão. Tente novamente mais tarde.")
         }
     }
 }
 
 
-export default CardServices
+export default card
